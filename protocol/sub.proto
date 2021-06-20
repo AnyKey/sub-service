@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "./_";
+
+service Sub {
+  rpc GetToken (GetTokenRequest) returns (GetTokenResponse) {}
+}
+
+message GetTokenRequest {
+  string message = 1;
+}
+
+message GetTokenResponse {
+  string token = 1;
+}

@@ -17,18 +17,4 @@
     "maxIdleConnect": 100,
     "connLifetime": 30
   },
-  "jaeger": {
-    "address": "127.0.0.1:9411"
-  },
-  "nats": {
-    "host": "nats://ip",
-    "port": "4223",
-    "maxReconnects": -1,
-    "reconnectWaitInMs": 250,
-    "reconnectBufSize": 52428800,
-    "streamID": "email",
-    "subscriptions": ["sub1", "sub2"],
-    "statisticFrequency": 5,
-    "purgeFrequency": 60
-  }
 }

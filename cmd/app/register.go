@@ -2,28 +2,29 @@ package main
 
 import (
 	"database/sql"
+	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
+	"sub-github.com/AnyKey/sub-service.git/client"
 
-	//emailGrpcDelivery "git.zuzex.com/bots/back/email.git/email/delivery/grpc"
-	//emailSmtpDelivery "git.zuzex.com/bots/back/email.git/email/delivery/smtp"
-	//emailDBRepository "git.zuzex.com/bots/back/email.git/email/repository/postgresql"
-	//emailUsecase "git.zuzex.com/bots/back/email.git/email/usecase"
+	userGrpcDelivery "sub-github.com/AnyKey/sub-service.git/user/delivery/grpc"
+	userHttpDelivery "sub-github.com/AnyKey/sub-service.git/user/delivery/http"
+	userDBRepository "sub-github.com/AnyKey/sub-service.git/user/repository/postgresql"
+	userUseCase "sub-github.com/AnyKey/sub-service.git/user/usecase"
 )
 
 // register usecase, delivery, repository for each entity
-func register(s *grpc.Server, db *sql.DB) {
-	emailRegister(s, db)
+func register(router *mux.Router,s *grpc.Server, db *sql.DB) {
+	emailRegister(router, s, db)
+	client.Template(router)
 }
 
-// register email entity
-func emailRegister(s *grpc.Server, db *sql.DB) {
-	emailDBRepo := emailDBRepository.New(db)
-	emailSMTPDelivery := emailSmtpDelivery.Delivery{}
+// register user entity
+func emailRegister(router *mux.Router,s *grpc.Server, db *sql.DB) {
+	DBRepo := userDBRepository.New(db)
+	HttpDelivery := userHttpDelivery.New(router)
 
-	emailUcase := emailUsecase.New(emailDBRepo, emailSMTPDelivery)
+	userUCase := userUseCase.New(DBRepo, HttpDelivery)
 
-	go emailNatsDelivery.NewConsumer(emailUcase).StartWatch(jsc)
-
-	emailGrpcDelivery.Launch(s, emailUcase)
+	userGrpcDelivery.Launch(s, userUCase)
 
 }

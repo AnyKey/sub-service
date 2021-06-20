@@ -1,13 +1,14 @@
 package main
 
 import (
-	"net"
-
-	"github.com/labstack/echo"
+	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
+	"net"
+	"net/http"
+	"time"
 )
 
 func init() {
@@ -37,12 +38,16 @@ func launchApp() {
 	}
 	defer dbConn.Close()
 
-	// echo http server
-	e := echo.New()
+	router := mux.NewRouter()
 
+	register(router, s, dbConn)
 
-	// register entities
-	register(s, dbConn)
+	srv := &http.Server{
+		Handler:      router,
+		Addr:         httpAddress,
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}
 
 	// creating listener on port for http and grpc
 	listener, err := net.Listen("tcp", grpcP)
@@ -59,6 +64,6 @@ func launchApp() {
 	}()
 
 	// serve http
-	log.Infof("Start serve http on %s port", httpAddress)
-	log.Fatalln("ECHO: ", e.Start(httpAddress))
+	log.Println("Serve http ON", httpAddress)
+	log.Fatal(srv.ListenAndServe())
 }
