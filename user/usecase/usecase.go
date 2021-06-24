@@ -1,6 +1,6 @@
 package usecase
 
-import "sub-github.com/AnyKey/sub-service.git/user"
+import "github.com/AnyKey/sub-service/user"
 
 type userUseCase struct {
 	userRepo         user.Repository

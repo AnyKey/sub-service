@@ -2,8 +2,8 @@ package postgresql
 
 import (
 	"database/sql"
+	"github.com/AnyKey/sub-service/user"
 	log "github.com/sirupsen/logrus"
-	"sub-github.com/AnyKey/sub-service.git/user"
 )
 
 type Repository struct {

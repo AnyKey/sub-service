@@ -1,4 +1,4 @@
-module sub-github.com/AnyKey/sub-service.git
+module github.com/AnyKey/sub-service
 
 go 1.16
 

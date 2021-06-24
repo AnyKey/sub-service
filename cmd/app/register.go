@@ -2,24 +2,24 @@ package main
 
 import (
 	"database/sql"
+	"github.com/AnyKey/sub-service/client"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
-	"sub-github.com/AnyKey/sub-service.git/client"
 
-	userGrpcDelivery "sub-github.com/AnyKey/sub-service.git/user/delivery/grpc"
-	userHttpDelivery "sub-github.com/AnyKey/sub-service.git/user/delivery/http"
-	userDBRepository "sub-github.com/AnyKey/sub-service.git/user/repository/postgresql"
-	userUseCase "sub-github.com/AnyKey/sub-service.git/user/usecase"
+	userGrpcDelivery "github.com/AnyKey/sub-service/user/delivery/grpc"
+	userHttpDelivery "github.com/AnyKey/sub-service/user/delivery/http"
+	userDBRepository "github.com/AnyKey/sub-service/user/repository/postgresql"
+	userUseCase "github.com/AnyKey/sub-service/user/usecase"
 )
 
 // register usecase, delivery, repository for each entity
-func register(router *mux.Router,s *grpc.Server, db *sql.DB) {
+func register(router *mux.Router, s *grpc.Server, db *sql.DB) {
 	emailRegister(router, s, db)
 	client.Template(router)
 }
 
 // register user entity
-func emailRegister(router *mux.Router,s *grpc.Server, db *sql.DB) {
+func emailRegister(router *mux.Router, s *grpc.Server, db *sql.DB) {
 	DBRepo := userDBRepository.New(db)
 	HttpDelivery := userHttpDelivery.New(router)
 

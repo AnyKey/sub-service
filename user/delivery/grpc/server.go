@@ -2,10 +2,10 @@ package grpc
 
 import (
 	"context"
+	proto "github.com/AnyKey/sub-service/protocol"
+	"github.com/AnyKey/sub-service/user"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	proto "sub-github.com/AnyKey/sub-service.git/protocol"
-	"sub-github.com/AnyKey/sub-service.git/user"
 )
 
 type grpcServer struct {
@@ -24,4 +24,3 @@ func (s *grpcServer) BroadcastDone(ctx context.Context, in *proto.GetTokenReques
 	log.Debugf("Received: %v", in.GetMessage())
 	return &proto.GetTokenResponse{Token: in.GetMessage() + " Received"}, nil
 }
-
