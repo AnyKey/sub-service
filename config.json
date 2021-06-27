@@ -5,16 +5,5 @@
   },
   "server": {
     "address": "localhost:1225"
-  },
-  "postgres": {
-    "host": "localhost",
-    "dbname": "test",
-    "user": "postgres",
-    "password": "123",
-    "port": 5432,
-    "sslMode": "disable",
-    "maxOpenConnect": 100,
-    "maxIdleConnect": 100,
-    "connLifetime": 30
   }
 }

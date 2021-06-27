@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 	log "github.com/sirupsen/logrus"
@@ -32,16 +31,9 @@ func launchApp() {
 	// creating singleton grpc server
 	s := grpc.NewServer()
 
-	// create database instance
-	//dbConn, err := initPostgresInstance()
-	//if err != nil {
-	//	log.Fatalf("connect database error %s", err)
-	//}
-	//defer dbConn.Close()
-
 	router := mux.NewRouter()
-	var dbConn *sql.DB
-	register(router, s, dbConn)
+
+	register(router, s)
 
 	srv := &http.Server{
 		Handler:      router,
