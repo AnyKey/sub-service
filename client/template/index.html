@@ -19,11 +19,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Say hello using the People API</title>
+    <title>Auth</title>
     <meta charset='utf-8' />
 </head>
 <body>
-<p>Say hello using the People API.</p>
+<p>Отправка авторизации.</p>
 
 <!--Add buttons to initiate auth sequence and sign out-->
 <button id="authorize-button" style="display: none;">Authorize</button>
@@ -94,6 +94,18 @@
             (googleUser) => {
                 const googleJWT = googleUser.mc.access_token;
                 console.log('Access token: ' + googleJWT);
+                var myHeaders = new Headers();
+                myHeaders.append("token", googleJWT);
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                };
+                if (googleJWT != "") {
+                    fetch('http://localhost:1225/token', requestOptions)
+                        .then(data => data.json())
+                        .then(json => console.log(json))
+                }
             }
         );
     }

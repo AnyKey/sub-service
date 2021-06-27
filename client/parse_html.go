@@ -10,9 +10,6 @@ import (
 
 func Template(router *mux.Router) {
 	router.HandleFunc("/index", parseHtml).Methods(http.MethodGet)
-	router.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		return
-	}).Methods(http.MethodGet)
 }
 func parseHtml(w http.ResponseWriter, r *http.Request) {
 	err, w := parsePage(w)

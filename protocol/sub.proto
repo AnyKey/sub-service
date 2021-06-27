@@ -7,9 +7,9 @@ service Sub {
 }
 
 message GetTokenRequest {
-  string message = 1;
+  string token = 1;
 }
 
 message GetTokenResponse {
-  string token = 1;
+  string message = 1;
 }

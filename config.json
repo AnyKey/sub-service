@@ -1,7 +1,9 @@
 {
   "debug": true,
-  "grpc": {
-    "port": ":50050"
+  "serviceMap": {
+    "sub-service": {
+      "address": "192.168.2.66:50050"
+    }
   },
   "server": {
     "address": "localhost:1225"

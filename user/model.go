@@ -2,10 +2,9 @@ package user
 
 // Usecase represent the User's usecases.
 type Usecase interface {
-	Token() error
+	Token(string) (*string, error)
 }
 
-// HttpDelivery represent the User's transport
-type HttpDelivery interface {
-	GetToken() error
+type GrpcDelivery interface {
+	GetToken(string) (*string, error)
 }

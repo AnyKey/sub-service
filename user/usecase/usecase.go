@@ -1,17 +1,28 @@
 package usecase
 
-import "github.com/AnyKey/sub-service/user"
+import (
+	"github.com/AnyKey/sub-service/user"
+	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
+)
 
 type userUseCase struct {
-	userHttpDelivery user.HttpDelivery
+	GrpcDelivery user.GrpcDelivery
 }
 
-func New(uh user.HttpDelivery) user.Usecase {
+func New(ug user.GrpcDelivery) user.Usecase {
 	return &userUseCase{
-		userHttpDelivery: uh,
+		GrpcDelivery: ug,
 	}
 }
 
-func (uuc *userUseCase) Token() error {
-	return nil
+func (uuc *userUseCase) Token(token string) (*string, error) {
+
+	res, err := uuc.GrpcDelivery.GetToken(token)
+	if err != nil {
+		log.Errorln("[GetToken] Error:", err)
+		return nil, errors.Wrap(err, "[GetToken] Error #1")
+	}
+
+	return res, nil
 }
