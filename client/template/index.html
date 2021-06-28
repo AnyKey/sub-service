@@ -93,7 +93,6 @@
             then(
             (googleUser) => {
                 const googleJWT = googleUser.mc.access_token;
-                console.log('Access token: ' + googleJWT);
                 var myHeaders = new Headers();
                 myHeaders.append("token", googleJWT);
                 var requestOptions = {

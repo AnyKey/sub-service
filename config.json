@@ -2,7 +2,7 @@
   "debug": true,
   "serviceMap": {
     "sub-service": {
-      "address": "192.168.2.66:50050"
+      "address": "localhost:50050"
     }
   },
   "server": {
